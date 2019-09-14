@@ -35,9 +35,13 @@ class Register(View):
         if allow != 'on':
             return http.HttpResponseForbidden('请勾选同意')
 
+        # 注册
+        from apps.users.models import User
+        user = User.objects.create_user(username=username, password=password, mobile=mobile)
+        # 保持登录状态
+        from django.contrib.auth import login
+        login(request, user)
 
-
-
-        return redirect('/')
+        return http.HttpResponse('首页')
 
 
