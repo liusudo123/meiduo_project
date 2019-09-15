@@ -18,7 +18,7 @@ class UsernameCount(View):
         count = User.objects.filter(username=username).count()
         # 4.返回相应对象
         return http.JsonResponse({'code': RETCODE.OK, 'errmsg': 'OK', 'count': count})
-        pass
+
 
 
 class Register(View):
