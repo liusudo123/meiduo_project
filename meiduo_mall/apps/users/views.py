@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 
 # Create your views here.
+from django.urls import reverse
 from django.views import View
 from django import http
 import re
@@ -67,6 +68,6 @@ class Register(View):
         from django.contrib.auth import login
         login(request, user)
 
-        return http.HttpResponse('首页')
+        return redirect(reverse('contents:index'))
 
 
