@@ -7,7 +7,15 @@ import re
 # 判断用户名是否重复
 from apps.users.models import User
 from utils.response_code import RETCODE
+class mobilesCount(View):
+    def get(self, request, mobile):
+        # 1.接收参数
 
+        # 2.校验,是否为空 正则
+        # 3.逻辑业务判断--数据库没有返回count
+        count = User.objects.filter(mobile=mobile).count()
+        # 4.返回相应对象
+        return http.JsonResponse({'code': RETCODE.OK, 'errmsg': 'OK', 'count': count})
 
 class UsernameCount(View):
     def get(self, request, username):

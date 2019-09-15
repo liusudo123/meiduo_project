@@ -20,7 +20,10 @@ from . import views
 
 urlpatterns = [
     url(r'register/$', views.Register.as_view()),
+    # 判断用户名是否重复/usernames/(?P<username>[a-zA-Z0-9_-]{5,20})/count/
+
     url(r'usernames/(?P<username>[a-zA-Z0-9_-]{5,20})/count/$', views.UsernameCount.as_view()),
 
-# /usernames/(?P<username>[a-zA-Z0-9_-]{5,20})/count/
+    # 判断手机号是否重复/mobiles/(?P<mobile>1[3-9]\d{9})/count/
+    url(r'^mobiles/(?P<mobile>1[3-9]\d{9})/count/$', views.mobilesCount.as_view()),
 ]
