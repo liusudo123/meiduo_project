@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # 注册自己的子应用
     'apps.users',
     'apps.contents',
+    'apps.verifications',
 ]
 
 MIDDLEWARE = [
