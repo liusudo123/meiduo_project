@@ -21,5 +21,7 @@ from . import views
 urlpatterns = [
 
     url(r'^image_codes/(?P<uuid>[\w-]+)/$', views.Image_codeView.as_view()),
+    # /sms_codes/(?P<mobile>1[3-9]\d{9})/
+    url(r'^sms_codes/(?P<mobile>1[3-9]\d{9})/$', views.SMS_codeView.as_view()),
 
 ]
