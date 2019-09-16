@@ -11,6 +11,8 @@ from libs.captcha.captcha import captcha
 from django_redis import get_redis_connection
 import random
 
+from utils.response_code import RETCODE
+
 
 class SMS_codeView(View):
     def get(self, request, mobile):
@@ -35,7 +37,13 @@ class SMS_codeView(View):
         sms_code = '%06d' % random.randint(0,999999)
         # 5.保存redis sms_code
         redis_sms_client = get_redis_connection('sms_code')
+        # 5.1取出避免频繁发送短信的标识
+        send_flag = redis_sms_client.get('send_flag_' % mobile)
+        # 5.2如果表示存在,代表已经发短信来
+        if send_flag:
+            return http.JsonResponse({'code': RETCODE.THROTTLINGERR, 'errmsg': '发送短信过于频繁'})
         redis_sms_client.setex('sms_%s' % mobile, 300, sms_code)
+        redis_sms_client.setex('send_flag_%s' % mobile, 60, 1)
         # 6.发短信——荣联运
         from libs.yuntongxun.sms import CCP
                                 # 手机号    6为玛 过期时间分钟 短信模板
