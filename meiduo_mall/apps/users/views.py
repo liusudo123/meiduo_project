@@ -6,6 +6,8 @@ from django.views import View
 from django import http
 import re
 # 判断用户名是否重复
+from django_redis import get_redis_connection
+
 from apps.users.models import User
 from utils.response_code import RETCODE
 class mobilesCount(View):
@@ -60,6 +62,16 @@ class Register(View):
             return http.HttpResponseForbidden('手机号格式有误')
         if allow != 'on':
             return http.HttpResponseForbidden('请勾选同意')
+
+        # 判断短信验证码是否正确
+        sms_code = request.POST.get('msg_code')
+        redis_sms_client = get_redis_connection('sms_code')
+        redis_sms_code = redis_sms_client.get('sms_%s' % mobile)
+        if not redis_sms_code:
+            return render(request, 'register.html', {'sms_code_errmsg': '无效的短信验证码'})
+        redis_sms_client.delete('sms_%s' % mobile)
+        if sms_code != redis_sms_code.decode():
+            return render(request, 'register.html', {'sms_code_errmsg': '短信验证码有误'})
 
         # 注册
         from apps.users.models import User
