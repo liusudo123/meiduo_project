@@ -12,7 +12,7 @@ from django_redis import get_redis_connection
 import random
 
 from utils.response_code import RETCODE
-
+from multiprocessing.dummy import Pool
 
 class SMS_codeView(View):
     def get(self, request, mobile):
@@ -38,7 +38,7 @@ class SMS_codeView(View):
         # 5.保存redis sms_code
         redis_sms_client = get_redis_connection('sms_code')
         # 5.1取出避免频繁发送短信的标识
-        send_flag = redis_sms_client.get('send_flag_' % mobile)
+        send_flag = redis_sms_client.get('send_flag_%s' % mobile)
         # 5.2如果表示存在,代表已经发短信来
         if send_flag:
             return http.JsonResponse({'code': RETCODE.THROTTLINGERR, 'errmsg': '发送短信过于频繁'})
@@ -51,10 +51,9 @@ class SMS_codeView(View):
         # 执行
         p1.execute()
         # 6.发短信——荣联运
-        from libs.yuntongxun.sms import CCP
-                                # 手机号    6为玛 过期时间分钟 短信模板
-        CCP().send_template_sms(mobile, [sms_code, 5], 1)
-        print(sms_code)
+        from celery_tasks.sms.tasks import send_sms_code_ccp
+        send_sms_code_ccp.delay(mobile, sms_code)
+        print('原始文件的短信玛', sms_code)
         # 7.返回相应对象
         return http.JsonResponse({'code': "0", 'errmsg': '发送短信成功'})
 
