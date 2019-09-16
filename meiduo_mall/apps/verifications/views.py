@@ -42,8 +42,14 @@ class SMS_codeView(View):
         # 5.2如果表示存在,代表已经发短信来
         if send_flag:
             return http.JsonResponse({'code': RETCODE.THROTTLINGERR, 'errmsg': '发送短信过于频繁'})
-        redis_sms_client.setex('sms_%s' % mobile, 300, sms_code)
-        redis_sms_client.setex('send_flag_%s' % mobile, 60, 1)
+        # 添加管道
+        p1 = redis_sms_client.pipeline()
+        # 添加任务
+        p1.setex('sms_%s' % mobile, 300, sms_code)
+
+        p1.setex('send_flag_%s' % mobile, 60, 1)
+        # 执行
+        p1.execute()
         # 6.发短信——荣联运
         from libs.yuntongxun.sms import CCP
                                 # 手机号    6为玛 过期时间分钟 短信模板
