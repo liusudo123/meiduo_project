@@ -30,8 +30,11 @@ class UsernameCount(View):
         # 4.返回相应对象
         return http.JsonResponse({'code': RETCODE.OK, 'errmsg': 'OK', 'count': count})
 
-
-
+# 4.登录
+class LoginView(View):
+    def get(self, request):
+        return render(request, 'login.html')
+# 3.手机号
 class Register(View):
     def get(self, request):
 
