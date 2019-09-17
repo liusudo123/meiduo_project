@@ -16,15 +16,10 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
+from . import views
+
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    # 注册--用户
-    url(r'^', include('apps.users.urls', namespace='users')),
-    # 2.首页
-    url(r'^', include('apps.contents.urls', namespace='contents')),
-    # 3.图形验证
-    url(r'^', include('apps.verifications.urls')),
-    # 4.qq登录
-    url(r'^', include('apps.oauth.urls')),
+
+    url(r'^qq/login/$', views.QQloginView.as_view()),
 
 ]

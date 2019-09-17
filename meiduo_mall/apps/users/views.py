@@ -86,6 +86,13 @@ class LoginView(View):
             # 记住---2星期
             request.session.set_expiry(None)
 
+        # 操作next
+        next = request.GET.get('next')
+        if next:
+            response = redirect(next)
+        else:
+            response = redirect(reverse('contents:index'))
+
         # 存用户名到cookie里面去
 
         response = redirect(reverse('contents:index'))
