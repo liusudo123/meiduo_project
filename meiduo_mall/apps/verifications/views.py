@@ -34,7 +34,7 @@ class SMS_codeView(View):
         if image_code.lower() != redis_img_code.decode().lower():
             return http.JsonResponse({'code': "4001", 'errmsg': '输入图形验证码有误'})
         # 4.生成随机6为
-        sms_code = '%06d' % random.randint(0,999999)
+        sms_code = '%06d' % random.randint(0, 999999)
         # 5.保存redis sms_code
         redis_sms_client = get_redis_connection('sms_code')
         # 5.1取出避免频繁发送短信的标识

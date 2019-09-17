@@ -32,8 +32,39 @@ class UsernameCount(View):
 
 # 4.登录
 class LoginView(View):
+
     def get(self, request):
         return render(request, 'login.html')
+
+    def post(self, request):
+        #1 后台接受,解析三个参数
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        remembered = request.POST.get('remembered')
+        # 2.form 表单 非表单,headers
+        # 3.校验判空判正则
+        # 4.判断用户名和密码是否正确--orm User
+        from django.contrib.auth import authenticate, login
+        user = authenticate(username=username, password=password)
+
+        # 判断 user是否存在, 不存在 代表登录失败
+        if user is None:
+            return render(request, 'login.html', {'account_errmsg': '用户名或密码错误'})
+
+        # 保持登录状态login()
+        login(request, user)
+
+        # 判断是否记住登录
+        if remembered != 'on':
+            # 不记录----会话失效
+            request.session.set_expiry(0)
+        else:
+            # 记住---2星期
+            request.session.set_expiry(None)
+        # 重定向到首页
+        return redirect(reverse('contents:index'))
+
+
 # 3.手机号
 class Register(View):
     def get(self, request):
