@@ -28,4 +28,6 @@ urlpatterns = [
     url(r'^mobiles/(?P<mobile>1[3-9]\d{9})/count/$', views.mobilesCount.as_view()),
 
     url(r'login/$', views.LoginView.as_view(), name='login'),
+    # 退出
+    url(r'logout/$', views.LogOutView.as_view(), name='logout'),
 ]

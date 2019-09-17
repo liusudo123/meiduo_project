@@ -10,6 +10,20 @@ from django_redis import get_redis_connection
 
 from apps.users.models import User
 from utils.response_code import RETCODE
+
+class LogOutView(View):
+    def get(self, request):
+        # 1.清除登录状态
+        from django.contrib.auth import logout
+        logout(request)
+        # 2.清除username---cookie
+        response = redirect(reverse('contents:index'))
+        response.delete_cookie('username')
+
+        # 3.重定向到首页
+        return response
+
+
 class mobilesCount(View):
     def get(self, request, mobile):
         # 1.接收参数
