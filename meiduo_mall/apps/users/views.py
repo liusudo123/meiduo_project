@@ -61,8 +61,15 @@ class LoginView(View):
         else:
             # 记住---2星期
             request.session.set_expiry(None)
+
+        # 存用户名到cookie里面去
+
+        response = redirect(reverse('contents:index'))
+        response.set_cookie('username', username, max_age=2 * 14 * 24 * 3600)
+
+
         # 重定向到首页
-        return redirect(reverse('contents:index'))
+        return response
 
 
 # 3.手机号
