@@ -216,3 +216,6 @@ AUTH_USER_MODEL = 'users.User'
 
 # 配置认证后端——多帐号登录
 AUTHENTICATION_BACKENDS = ['apps.users.utils.UsernameMobileAuthBackend']
+
+
+LOGIN_URL = '/login/'

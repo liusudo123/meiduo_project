@@ -10,6 +10,16 @@ from django_redis import get_redis_connection
 
 from apps.users.models import User
 from utils.response_code import RETCODE
+from django.contrib.auth.mixins import LoginRequiredMixin
+
+# 6.用户中心
+
+
+class InfoView(LoginRequiredMixin, View):
+
+    def get(self, request):
+        return render(request, 'user_center_info.html')
+# 5.退出
 
 class LogOutView(View):
     def get(self, request):

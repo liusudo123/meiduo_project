@@ -30,4 +30,6 @@ urlpatterns = [
     url(r'login/$', views.LoginView.as_view(), name='login'),
     # 退出
     url(r'logout/$', views.LogOutView.as_view(), name='logout'),
+    # 用户中心
+    url(r'info/$', views.InfoView.as_view(), name='info'),
 ]
