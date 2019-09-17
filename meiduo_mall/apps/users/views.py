@@ -65,7 +65,7 @@ class LoginView(View):
         # 存用户名到cookie里面去
 
         response = redirect(reverse('contents:index'))
-        response.set_cookie('username', username, max_age=2 * 14 * 24 * 3600)
+        response.set_cookie('username', user.username, max_age=2 * 14 * 24 * 3600)
 
 
         # 重定向到首页

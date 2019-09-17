@@ -47,7 +47,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -213,3 +213,6 @@ logger = logging.getLogger('django')
 
 # 配置认证的user对象
 AUTH_USER_MODEL = 'users.User'
+
+# 配置认证后端——多帐号登录
+AUTHENTICATION_BACKENDS = ['apps.users.utils.UsernameMobileAuthBackend']
