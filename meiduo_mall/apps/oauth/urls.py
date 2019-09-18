@@ -22,4 +22,6 @@ urlpatterns = [
 
     url(r'^qq/login/$', views.QQloginView.as_view()),
 
+    # oauth_callback回调地址
+    url(r'^oauth_callback/$', views.QQOauthCallbackView.as_view()),
 ]
