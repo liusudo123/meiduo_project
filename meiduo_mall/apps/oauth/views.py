@@ -1,13 +1,38 @@
 from django import http
 from django.conf import settings
-from django.shortcuts import render
+from django.contrib.auth import login
+from django.shortcuts import render, redirect
 
 # Create your views here.
+from django.urls import reverse
 from django.views import View
 
+from apps.oauth.models import OAuthQQUser
 from utils.response_code import RETCODE
 # 1.导包 qq登录工具
 from QQLoginTool.QQtool import OAuthQQ
+
+# 判断是否绑定openid
+def is_bind_openid(openid, request):
+    try:
+        # 判断openid 在不在 qq登录表OAuthQQUser
+        qq_user = OAuthQQUser.objects.get(openid=openid)
+    except OAuthQQUser.DoesNotExist:
+        # 不存在---跳转到绑定页面
+
+        context = {'openid': openid}
+        response = render(request, 'oauth_callback.html', context)
+    else:
+        # 存在
+        # 1.保持登录状态
+        user = qq_user.user
+        login(request, user)
+        # 2.cookie保存用户名
+        response = redirect(reverse('contents:index'))
+        response.set_cookie('username', user.username, max_age=14*2*24*3600)
+
+        # 3.重定向到首页
+    return response
 
 
 class QQOauthCallbackView(View):
@@ -22,7 +47,11 @@ class QQOauthCallbackView(View):
         # 3.acess_token = ---->openid
         openid = oauth.get_open_id(token)
 
-        return http.HttpResponse(openid)
+        # 4.判断是否绑定openid
+        response = is_bind_openid(openid, request)
+
+        return response
+
 
 class QQloginView(View):
     # qq登录网址
