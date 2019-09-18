@@ -1,3 +1,5 @@
+import json
+
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -12,8 +14,21 @@ from apps.users.models import User
 from utils.response_code import RETCODE
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-# 6.用户中心
+# 7.保存邮箱
+class EmailsView(LoginRequiredMixin, View):
+    def put(self, request):
+        # 1.接受参数 json
+        json_dict = json.loads(request.body.decode())
+        email = json_dict.get('email')
 
+        # 2.校验 正则
+
+        # 3.修改数据email
+        request.user.email = email
+        request.user.save()
+        # 4.返回响应
+        return http.JsonResponse({'code': RETCODE.OK, 'errmsg': '添加邮箱成功'})
+# 6.用户中心
 
 class InfoView(LoginRequiredMixin, View):
 
