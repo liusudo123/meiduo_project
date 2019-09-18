@@ -18,7 +18,17 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class InfoView(LoginRequiredMixin, View):
 
     def get(self, request):
-        return render(request, 'user_center_info.html')
+        # 1.去数据库查询 个人信息--username（cookie）
+        # 2. request.user
+        context = {
+            'username': request.user.username,
+            'mobile': request.user.mobile,
+            'email': request.user.email,
+            'email_active': request.user.email_active
+
+        }
+
+        return render(request, 'user_center_info.html', context)
 # 5.退出
 
 class LogOutView(View):
