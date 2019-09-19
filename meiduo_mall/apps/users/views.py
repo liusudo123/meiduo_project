@@ -11,6 +11,7 @@ import re
 from django_redis import get_redis_connection
 
 from apps.users.models import User
+from apps.users.utils import generate_verify_email_url
 from utils.response_code import RETCODE
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -28,8 +29,10 @@ class EmailsView(LoginRequiredMixin, View):
         request.user.save()
 
         # 发邮件
+        verify_url = generate_verify_email_url(request.user)
+
         from celery_tasks.email.tasks import send_verify_email
-        send_verify_email.delay(email)
+        send_verify_email.delay(email, verify_url)
         # 4.返回响应
         return http.JsonResponse({'code': RETCODE.OK, 'errmsg': '添加邮箱成功'})
 # 6.用户中心

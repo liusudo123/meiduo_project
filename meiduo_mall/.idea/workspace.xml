@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="13ee7b6f-4962-4218-8585-317b69503352" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/celery_tasks/email/__init__.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/celery_tasks/email/tasks.py" />
+    <list default="true" id="13ee7b6f-4962-4218-8585-317b69503352" name="Default" comment="4.发邮件--celery--异步&#10;  1.dev.py 配置&#10;  2.celery---tasks send_mail()&#10;  3.celry---main.py ---discover_task([])&#10;  4.views.py --send_verify_email.delay()&#10;  5.终端 启动 异步&#10;">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/users/utils.py" afterPath="$PROJECT_DIR$/apps/users/utils.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/users/views.py" afterPath="$PROJECT_DIR$/apps/users/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/celery_tasks/main.py" afterPath="$PROJECT_DIR$/celery_tasks/main.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/meiduo_mall/settings/dev.py" afterPath="$PROJECT_DIR$/meiduo_mall/settings/dev.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/celery_tasks/email/tasks.py" afterPath="$PROJECT_DIR$/celery_tasks/email/tasks.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/404.html" afterPath="$PROJECT_DIR$/static/404.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/cart.html" afterPath="$PROJECT_DIR$/static/cart.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/detail.html" afterPath="$PROJECT_DIR$/static/detail.html" />
@@ -90,9 +88,12 @@
       <file leaf-file-name="utils.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/users/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="644">
-              <caret line="33" column="23" lean-forward="false" selection-start-line="33" selection-start-column="23" selection-end-line="33" selection-end-column="23" />
-              <folding />
+            <state relative-caret-position="253">
+              <caret line="11" column="35" lean-forward="false" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="35" />
+              <folding>
+                <element signature="e#7#16#0" expanded="true" />
+                <element signature="e#539#856#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -110,16 +111,16 @@
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/users/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="32" column="16" lean-forward="true" selection-start-line="32" selection-start-column="16" selection-end-line="32" selection-end-column="16" />
+            <state relative-caret-position="138">
+              <caret line="34" column="36" lean-forward="true" selection-start-line="34" selection-start-column="36" selection-end-line="34" selection-end-column="36" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
-                <element signature="e#942#1316#0" expanded="false" />
-                <element signature="e#1352#1639#0" expanded="false" />
-                <element signature="e#1672#1942#0" expanded="false" />
-                <element signature="e#1975#2253#0" expanded="false" />
-                <element signature="e#2288#3562#0" expanded="false" />
-                <element signature="e#3596#5453#0" expanded="false" />
+                <element signature="e#1071#1445#0" expanded="false" />
+                <element signature="e#1481#1768#0" expanded="false" />
+                <element signature="e#1801#2071#0" expanded="false" />
+                <element signature="e#2104#2382#0" expanded="false" />
+                <element signature="e#2417#3691#0" expanded="false" />
+                <element signature="e#3725#5582#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -128,8 +129,8 @@
       <file leaf-file-name="tasks.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/celery_tasks/email/tasks.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
-              <caret line="15" column="6" lean-forward="true" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
+            <state relative-caret-position="-50">
+              <caret line="7" column="36" lean-forward="false" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
               <folding>
                 <element signature="e#0#32#0" expanded="true" />
               </folding>
@@ -140,8 +141,8 @@
       <file leaf-file-name="dev.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/meiduo_mall/settings/dev.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="234" column="11" lean-forward="false" selection-start-line="234" selection-start-column="0" selection-end-line="234" selection-end-column="11" />
+            <state relative-caret-position="86">
+              <caret line="235" column="16" lean-forward="false" selection-start-line="235" selection-start-column="0" selection-end-line="235" selection-end-column="16" />
               <folding />
             </state>
           </provider>
@@ -150,7 +151,7 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/celery_tasks/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="276">
+            <state relative-caret-position="69">
               <caret line="12" column="63" lean-forward="false" selection-start-line="12" selection-start-column="63" selection-end-line="12" selection-end-column="63" />
               <folding>
                 <element signature="e#7#32#0" expanded="true" />
@@ -159,7 +160,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="config.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="config.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/celery_tasks/config.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
@@ -169,7 +170,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="meiduo.tb_users" pinned="false" current-in-tab="false">
+      <file leaf-file-name="meiduo.tb_users" pinned="false" current-in-tab="true">
         <entry file="dbDummy://dbtable:/33bcf16e/84f5819e-542b-4b49-8934-86066b17b3d8/meiduo.tb_users">
           <provider editor-type-id="text-editor">
             <state relative-caret-position="0">
@@ -238,7 +239,6 @@
         <option value="$PROJECT_DIR$/libs/yuntongxun/sms.py" />
         <option value="$PROJECT_DIR$/celery_tasks/sms/tasks.py" />
         <option value="$PROJECT_DIR$/apps/verifications/views.py" />
-        <option value="$PROJECT_DIR$/apps/users/utils.py" />
         <option value="$PROJECT_DIR$/templates/index.html" />
         <option value="$PROJECT_DIR$/meiduo_mall/urls.py" />
         <option value="$PROJECT_DIR$/utils/models.py" />
@@ -250,8 +250,9 @@
         <option value="$PROJECT_DIR$/apps/users/models.py" />
         <option value="$PROJECT_DIR$/templates/user_center_info.html" />
         <option value="$PROJECT_DIR$/apps/users/urls.py" />
-        <option value="$PROJECT_DIR$/meiduo_mall/settings/dev.py" />
         <option value="$PROJECT_DIR$/celery_tasks/main.py" />
+        <option value="$PROJECT_DIR$/meiduo_mall/settings/dev.py" />
+        <option value="$PROJECT_DIR$/apps/users/utils.py" />
         <option value="$PROJECT_DIR$/celery_tasks/email/tasks.py" />
         <option value="$PROJECT_DIR$/apps/users/views.py" />
       </list>
@@ -315,7 +316,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="celery_tasks" />
+              <option name="myItemId" value="apps" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -329,11 +330,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="celery_tasks" />
+              <option name="myItemId" value="apps" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="email" />
+              <option name="myItemId" value="users" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -964,7 +965,14 @@
       <option name="project" value="LOCAL" />
       <updated>1568811345485</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="4.发邮件--celery--异步&#10;  1.dev.py 配置&#10;  2.celery---tasks send_mail()&#10;  3.celry---main.py ---discover_task([])&#10;  4.views.py --send_verify_email.delay()&#10;  5.终端 启动 异步&#10;">
+      <created>1568862575435</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1568862575436</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TodoView">
@@ -983,11 +991,11 @@
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13297515" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290938" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17125587" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.1699127" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290938" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32750398" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24983211" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3052464" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30206677" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1027,7 +1035,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="12.注册功能的事项 替换 &#10;13.自定义user模型类" />
     <MESSAGE value="14.创建用户 create_user&#10;  保持登录状态login()" />
     <MESSAGE value="2.判断前端用户名是否重复----axios 演示" />
     <MESSAGE value="3.判断手机号是否重复&#10;    user.objects.filter(mobile=mobile).count" />
@@ -1052,7 +1059,8 @@
     <MESSAGE value="---------第四天--------&#10;1.新增了 users---models.py---&gt;email_active" />
     <MESSAGE value="2.显示用户信息数据&#10;  request.user&#10;  context = {}&#10;  2. redern--jinja2---js--Vue显示" />
     <MESSAGE value="3.保存邮箱&#10;  request.user.email = email&#10;  request.user.save()" />
-    <option name="LAST_COMMIT_MESSAGE" value="3.保存邮箱&#10;  request.user.email = email&#10;  request.user.save()" />
+    <MESSAGE value="4.发邮件--celery--异步&#10;  1.dev.py 配置&#10;  2.celery---tasks send_mail()&#10;  3.celry---main.py ---discover_task([])&#10;  4.views.py --send_verify_email.delay()&#10;  5.终端 启动 异步&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="4.发邮件--celery--异步&#10;  1.dev.py 配置&#10;  2.celery---tasks send_mail()&#10;  3.celry---main.py ---discover_task([])&#10;  4.views.py --send_verify_email.delay()&#10;  5.终端 启动 异步&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1380,27 +1388,82 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/users/utils.py">
+    <entry file="file://$PROJECT_DIR$/templates/user_center_info.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="644">
-          <caret line="33" column="23" lean-forward="false" selection-start-line="33" selection-start-column="23" selection-end-line="33" selection-end-column="23" />
+        <state relative-caret-position="23">
+          <caret line="74" column="2" lean-forward="false" selection-start-line="74" selection-start-column="2" selection-end-line="74" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/users/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/meiduo_mall/settings/dev.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="234" column="11" lean-forward="false" selection-start-line="234" selection-start-column="0" selection-end-line="234" selection-end-column="11" />
+        <state relative-caret-position="86">
+          <caret line="235" column="16" lean-forward="false" selection-start-line="235" selection-start-column="0" selection-end-line="235" selection-end-column="16" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/user_center_info.html">
+    <entry file="file://$PROJECT_DIR$/celery_tasks/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
-          <caret line="74" column="2" lean-forward="false" selection-start-line="74" selection-start-column="2" selection-end-line="74" selection-end-column="2" />
+        <state relative-caret-position="69">
+          <caret line="12" column="63" lean-forward="false" selection-start-line="12" selection-start-column="63" selection-end-line="12" selection-end-column="63" />
+          <folding>
+            <element signature="e#7#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/celery_tasks/config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="15" lean-forward="false" selection-start-line="0" selection-start-column="15" selection-end-line="0" selection-end-column="15" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/users/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="11" column="35" lean-forward="false" selection-start-line="11" selection-start-column="4" selection-end-line="11" selection-end-column="35" />
+          <folding>
+            <element signature="e#7#16#0" expanded="true" />
+            <element signature="e#539#856#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/celery_tasks/email/tasks.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-50">
+          <caret line="7" column="36" lean-forward="false" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/users/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="34" column="36" lean-forward="true" selection-start-line="34" selection-start-column="36" selection-end-line="34" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#1071#1445#0" expanded="false" />
+            <element signature="e#1481#1768#0" expanded="false" />
+            <element signature="e#1801#2071#0" expanded="false" />
+            <element signature="e#2104#2382#0" expanded="false" />
+            <element signature="e#2417#3691#0" expanded="false" />
+            <element signature="e#3725#5582#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1414,58 +1477,6 @@
       <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
         <state>
           <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/users/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/apps/users/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="32" column="16" lean-forward="true" selection-start-line="32" selection-start-column="16" selection-end-line="32" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-            <element signature="e#942#1316#0" expanded="false" />
-            <element signature="e#1352#1639#0" expanded="false" />
-            <element signature="e#1672#1942#0" expanded="false" />
-            <element signature="e#1975#2253#0" expanded="false" />
-            <element signature="e#2288#3562#0" expanded="false" />
-            <element signature="e#3596#5453#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/celery_tasks/email/tasks.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="15" column="6" lean-forward="true" selection-start-line="15" selection-start-column="6" selection-end-line="15" selection-end-column="6" />
-          <folding>
-            <element signature="e#0#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/celery_tasks/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="276">
-          <caret line="12" column="63" lean-forward="false" selection-start-line="12" selection-start-column="63" selection-end-line="12" selection-end-column="63" />
-          <folding>
-            <element signature="e#7#32#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/celery_tasks/config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="15" lean-forward="false" selection-start-line="0" selection-start-column="15" selection-end-line="0" selection-end-column="15" />
-          <folding />
         </state>
       </provider>
     </entry>
