@@ -16,17 +16,10 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 
-urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    # 注册--用户
-    url(r'^', include('apps.users.urls', namespace='users')),
-    # 2.首页
-    url(r'^', include('apps.contents.urls', namespace='contents')),
-    # 3.图形验证
-    url(r'^', include('apps.verifications.urls')),
-    # 4.qq登录
-    url(r'^', include('apps.oauth.urls')),
-    # 5.城市数据
-    url(r'^', include('apps.areas.urls')),
+from . import views
 
+urlpatterns = [
+
+
+    url(r'^areas/$', views.AreasView.as_view()),
 ]
