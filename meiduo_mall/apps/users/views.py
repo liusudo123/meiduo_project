@@ -18,6 +18,24 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from utils.secret import SecretOauth
 
 
+# 9.展示收货地址
+class AddressView(View):
+    def get(self, request):
+        context = {
+            'addresses':[],
+            'default_address_id':"",
+
+
+        }
+
+        return render(request, 'user_center_site.html')
+
+
+
+
+
+
+# 8.激活邮箱
 class EmailsVerifView(View):
     def get(self, request):
         # 1.接受参数
