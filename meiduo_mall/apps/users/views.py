@@ -26,6 +26,10 @@ class EmailsView(LoginRequiredMixin, View):
         # 3.修改数据email
         request.user.email = email
         request.user.save()
+
+        # 发邮件
+        from celery_tasks.email.tasks import send_verify_email
+        send_verify_email.delay(email)
         # 4.返回响应
         return http.JsonResponse({'code': RETCODE.OK, 'errmsg': '添加邮箱成功'})
 # 6.用户中心
