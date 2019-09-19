@@ -15,6 +15,29 @@ from apps.users.utils import generate_verify_email_url
 from utils.response_code import RETCODE
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+from utils.secret import SecretOauth
+
+
+class EmailsVerifView(View):
+    def get(self, request):
+        # 1.接受参数
+        token = request.GET.get('token')
+        # 解密
+        data_dict = SecretOauth().loads(token)
+        user_id = data_dict.GET.get('use_id')
+        email = data_dict.GET.get('email')
+        # 2.校验
+        try:
+            user = User.objects.get(id=user_id, email=email)
+        except Exception as e:
+            print(e)
+            return http.HttpResponseForbidden('token无效的')
+        # 3.修改 email_active
+        user.email_active = True
+        user.save()
+        # 4.返回
+        return redirect(reverse('users:info'))
+
 # 7.保存邮箱
 class EmailsView(LoginRequiredMixin, View):
     def put(self, request):
