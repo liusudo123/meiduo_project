@@ -40,5 +40,7 @@ urlpatterns = [
     url(r'^address/$', views.AddressView.as_view(), name='address'),
     # 增加地址
     url(r'^addresses/create/$', views.AddressAddView.as_view()),
+    # 修改密码
+    url(r'^password/$', views.ChangePwdAddView.as_view()),
 
 ]

@@ -1,5 +1,6 @@
 import json
 
+from django.contrib.auth import logout
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
@@ -18,6 +19,34 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from utils.secret import SecretOauth
 
+
+class ChangePwdAddView(LoginRequiredMixin, View):
+    def get(self, request):
+        return render(request, 'user_center_pass.html')
+
+    # 修改密码
+    def post(self, request):
+        # 1.接受参数
+        old_password = request.POST.get('old_pwd')
+        new_password = request.POST.get('new_pwd')
+        new_password2 = request.POST.get('new_cpwd')
+
+        # 2.校验 判空, 判断正则
+        user = request.user
+        if not user.check_password(old_password):
+            return render(request, 'user_center_pass.html', {'origin_pwd_errmsg': '原始密码错误'})
+
+        # 3.重新设置密码
+        user.set_password(new_password)
+        user.save()
+        # 4.重定向登录页
+        response = redirect(reverse("users:login"))
+        # 4.退出登陆
+        logout(request)
+
+        # 干掉cookie
+        response.delete_cookie('username')
+        return response
 
 # 10.新增地址
 class AddressAddView(LoginRequiredMixin, View):
