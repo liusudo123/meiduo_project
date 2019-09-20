@@ -1,5 +1,6 @@
 import json
 
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 # Create your views here.
@@ -10,12 +11,66 @@ import re
 # 判断用户名是否重复
 from django_redis import get_redis_connection
 
-from apps.users.models import User
+from apps.users.models import User, Address
 from apps.users.utils import generate_verify_email_url
 from utils.response_code import RETCODE
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from utils.secret import SecretOauth
+
+
+# 10.新增地址
+class AddressAddView(LoginRequiredMixin, View):
+    def post(self, request):
+        # 限制增加个数, 不能超过20个
+        count = Address.objects.filter(user=request.user, is_deleted=False).count()
+        if count > 20:
+            return http.JsonResponse({'code': RETCODE.THROTTLINGERR, 'errmsg': '超过地址数量上限'})
+        # 1.接受参数
+        json_dict = json.loads(request.body.decode())
+        receiver = json_dict.get('receiver')
+        province_id = json_dict.get('province_id')
+        city_id = json_dict.get('city_id')
+        district_id = json_dict.get('district_id')
+        place = json_dict.get('place')
+        mobile = json_dict.get('mobile')
+        tel = json_dict.get('tel')
+        email = json_dict.get('email')
+
+        # 2.校验 判空 正则
+
+
+        # 3.orm = create() save()
+        address = Address.objects.create(
+            user=request.user,
+            title=receiver,
+            receiver=receiver,
+            province_id=province_id,
+            city_id=city_id,
+            district_id=district_id,
+            place=place,
+            mobile=mobile,
+            tel=tel,
+            email=email,
+
+        )
+        # 4.数据转换->dict
+        address_dict = {
+            "id": address.id,
+            "title": address.title,
+            "receiver": address.receiver,
+            "province": address.province.name,
+            "city": address.city.name,
+            "district": address.district.name,
+            "place": address.place,
+            "mobile": address.mobile,
+            "tel": address.tel,
+            "email": address.email,
+        }
+
+        # 响应保存结果
+        return http.JsonResponse({'code': RETCODE.OK, 'errmsg': '新增地址成功', 'address': address_dict})
+
 
 
 # 9.展示收货地址
@@ -36,14 +91,14 @@ class AddressView(View):
 
 
 # 8.激活邮箱
-class EmailsVerifView(View):
+class EmailsVerifView(LoginRequiredMixin, View):
     def get(self, request):
         # 1.接受参数
         token = request.GET.get('token')
         # 解密
         data_dict = SecretOauth().loads(token)
-        user_id = data_dict.GET.get('use_id')
-        email = data_dict.GET.get('email')
+        user_id = data_dict.get('user_id')
+        email = data_dict.get('email')
         # 2.校验
         try:
             user = User.objects.get(id=user_id, email=email)

@@ -19,7 +19,7 @@ def generate_verify_email_url(user):
     from utils.secret import SecretOauth
     dumps_params = SecretOauth().dumps(data_dict)
 
-    verify_url = host_url + '?token' + dumps_params
+    verify_url = host_url + '?token=' + dumps_params
     return verify_url
 
 
