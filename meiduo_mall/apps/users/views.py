@@ -73,18 +73,34 @@ class AddressAddView(LoginRequiredMixin, View):
 
 
 
-# 9.展示收货地址
-class AddressView(View):
+# 9. 展示收货地址
+class AddressView(LoginRequiredMixin, View):
     def get(self, request):
+        # 1.根据用户 查询所有地址  filter()
+        addresses = Address.objects.filter(user=request.user, is_deleted=False)
+
+        # 2.转换前端的数据格式
+        adressess_list = []
+        for address in addresses:
+            adressess_list.append({
+                "id": address.id,
+                "title": address.title,
+                "receiver": address.receiver,
+                "province": address.province.name,
+                "city": address.city.name,
+                "district": address.district.name,
+                "place": address.place,
+                "mobile": address.mobile,
+                "tel": address.tel,
+                "email": address.email
+            })
+
         context = {
-            'addresses':[],
-            'default_address_id':"",
-
-
+            'default_address_id': request.user.default_address_id,
+            'addresses': adressess_list,
         }
 
-        return render(request, 'user_center_site.html')
-
+        return render(request, 'user_center_site.html', context)
 
 
 
