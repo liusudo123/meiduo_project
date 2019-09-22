@@ -4,6 +4,8 @@ from django.shortcuts import render
 from django.views import View
 
 from apps.contents.utils import get_categories
+from apps.goods.models import GoodsCategory
+from apps.goods.utils import get_breadcrumb
 
 
 class DetailView(View):
@@ -67,15 +69,16 @@ class DetailView(View):
 
 class ListView(View):
     def get(self, request, category_id, page_num):
+        cat3 = GoodsCategory.objects.get(id=category_id)
         # 1.三级商品分类 调用 contents 封装好的代码
         categories = get_categories()
         # 2.面包屑组件 cat3.parent
+        breadcrumb = get_breadcrumb(cat3)
         # 3.排序 order_by
         # 4.分页器 paginator
         # 5.热销商品
         context = {
-            'categories': categories
-
-
+            'categories': categories,
+            'breadcrumb': breadcrumb
         }
         return render(request, 'list.html', context)
