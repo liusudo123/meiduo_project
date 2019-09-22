@@ -27,4 +27,7 @@ urlpatterns = [
     #  详情页/detail/(?P<sku_id>\d+)/
     url(r'^detail/(?P<sku_id>\d+)/$', views.DetailView.as_view(), name='detail'),
 
+    # 商品分类日访问量 /detail/visit/(?P<category_id>\d+)/
+    url(r'^detail/visit/(?P<category_id>\d+)/$', views.DetailVisitView.as_view(), name='detail'),
+
 ]

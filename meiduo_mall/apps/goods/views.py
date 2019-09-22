@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django import http
 from django.shortcuts import render
 
@@ -6,9 +8,38 @@ from django.views import View
 
 from apps.contents.utils import get_categories
 from apps.goods import models
-from apps.goods.models import GoodsCategory, SKU
+from apps.goods.models import GoodsCategory, SKU, GoodsVisitCount
 from apps.goods.utils import get_breadcrumb
 from utils.response_code import RETCODE
+
+
+class DetailVisitView(View):
+    def post(self, request, category_id):
+        # 1.接受参数
+        # 2.校验--三级分类是否存在
+        try:
+           category = GoodsCategory.objects.get(id=category_id)
+        except:
+            return http.HttpResponseForbidden('该分类不存在')
+        # 日期格式化
+        today_str = datetime.now().strftime('%Y-%m-%d')
+        today_date = datetime.strptime(today_str, '%Y-%m-%d')
+        # 3.判断日期 如果今天 115分类已经有记录了---count+=1
+        try:
+            visit = GoodsVisitCount.objects.get(category=category, date=today_date)
+            # visit = category.goodsvisitcount_set.get(date=today_date)
+        except:
+            # 如果没有记录----新建模型数据---count=1
+            visit = GoodsVisitCount()
+
+            visit.count += 1
+            visit.category = category
+            visit.save()
+
+
+        # 4.返回相应对象
+
+        return http.JsonResponse({'code': RETCODE.OK, 'errmsg': 'OK'})
 
 
 class DetailView(View):
@@ -69,6 +100,7 @@ class DetailView(View):
             'specs': goods_specs,
         }
         return render(request, 'detail.html', context)
+
 
 class HotView(View):
     def get(self, request, category_id):
