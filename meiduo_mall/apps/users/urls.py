@@ -42,5 +42,7 @@ urlpatterns = [
     url(r'^addresses/create/$', views.AddressAddView.as_view()),
     # 修改密码
     url(r'^password/$', views.ChangePwdAddView.as_view()),
+    #12. 保存用户记录 /browse_histories/
+    url(r'^browse_histories/$', views.UserBrowserView.as_view()),
 
 ]

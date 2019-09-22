@@ -12,12 +12,38 @@ import re
 # 判断用户名是否重复
 from django_redis import get_redis_connection
 
+from apps.goods.models import SKU
 from apps.users.models import User, Address
 from apps.users.utils import generate_verify_email_url
 from utils.response_code import RETCODE
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from utils.secret import SecretOauth
+
+
+class UserBrowserView(LoginRequiredMixin, View):
+    def post(self, request):
+        # 1.接受参数
+        sku_id = json.loads(request.body.decode())['sku_id']
+
+        # 2. 校验
+        try:
+            sku = SKU.objects.get(id=sku_id)
+        except:
+            return http.HttpResponseForbidden('商品不存在！')
+        # 3.链接redis
+        client = get_redis_connection('history')
+        redis_key = 'history_%d' % request.user.id
+        p1 = client.pipeline()
+        # 4.去重
+        p1.lrem(redis_key, 0, sku_id)
+        # 5.存
+        p1.lpush(redis_key, sku_id)
+        # 6.截取
+        p1.ltrim(redis_key, 0, 4)
+        p1.execute()
+        # 7.存完
+        return JsonResponse({'code': RETCODE.OK, 'errmsg': 'OK'})
 
 
 class ChangePwdAddView(LoginRequiredMixin, View):
