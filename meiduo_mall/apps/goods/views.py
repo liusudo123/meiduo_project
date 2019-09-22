@@ -87,9 +87,20 @@ class ListView(View):
         skus = SKU.objects.filter(category_id=cat3, is_launched=True).order_by(order_field)
         print(skus)
         # 4.分页器 paginator
+        from django.core.paginator import Paginator
+        paginator = Paginator(skus, 5)
+        page_skus = paginator.page(page_num)
+        total_pages = paginator.num_pages
+
         # 5.热销商品
         context = {
-            'categories': categories,
-            'breadcrumb': breadcrumb
+
+            'categories': categories,  # 频道分类
+            'breadcrumb': breadcrumb,  # 面包屑导航
+            'sort': sort,  # 排序字段
+            'category': cat3,  # 第三级分类
+            'page_skus': page_skus,  # 分页后数据
+            'total_page': total_pages,  # 总页数
+            'page_num': page_num,  # 当前页码
         }
         return render(request, 'list.html', context)
