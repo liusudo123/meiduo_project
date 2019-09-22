@@ -125,16 +125,12 @@
 			<div class="new_goods">
 				<h3>热销排行</h3>
 				<ul>
-					<li>
-						<a href="detail.html"><img src="images/goods/goods001.jpg"></a>
-						<h4><a href="#">360手机 N6 Pro 全网通 6GB+128GB 极夜黑</a></h4>
-						<div class="price">￥3.90</div>
+					<li v-for="sku in hots" >
+						<a href="detail.html"><img v-bind:src="sku.default_image_url"></a>
+						<h4><a href="#">[[ sku.name ]]</a></h4>
+						<div class="price">[[ sku.price ]]</div>
 					</li>
-					<li>
-						<a href="detail.html"><img src="images/goods/goods002.jpg"></a>
-						<h4><a href="#">360手机 N6 Pro 全网通 6GB+128GB 极夜黑</a></h4>
-						<div class="price">￥16.80</div>
-					</li>
+
 				</ul>
 			</div>
 		</div>
