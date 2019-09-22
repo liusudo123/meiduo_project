@@ -1,6 +1,11 @@
 from django.shortcuts import render
 
 # Create your views here.
+from django.views import View
+
+from apps.contents.utils import get_categories
+
+
 class DetailView(View):
     """商品详情页"""
 
@@ -59,3 +64,18 @@ class DetailView(View):
             'specs': goods_specs,
         }
         return render(request, 'detail.html', context)
+
+class ListView(View):
+    def get(self, request, category_id, page_num):
+        # 1.三级商品分类 调用 contents 封装好的代码
+        categories = get_categories()
+        # 2.面包屑组件 cat3.parent
+        # 3.排序 order_by
+        # 4.分页器 paginator
+        # 5.热销商品
+        context = {
+            'categories': categories
+
+
+        }
+        return render(request, 'list.html', context)

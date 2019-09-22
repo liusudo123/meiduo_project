@@ -25,7 +25,7 @@ class IndexView(View):
             contents[ad_cat.key] = ad_cat.content_set.filter(status=True).order_by('sequence')
 
         context = {
-            'categories': {},
+            'categories': categories,
             'contents': contents
         }
         print(context)

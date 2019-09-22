@@ -28,5 +28,6 @@ urlpatterns = [
     url(r'^', include('apps.oauth.urls')),
     # 5.城市数据
     url(r'^', include('apps.areas.urls')),
-
+    # 6.商品数据list
+    url(r'^', include('apps.goods.urls')),
 ]

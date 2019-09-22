@@ -19,7 +19,7 @@ from django.contrib import admin
 from . import views
 
 urlpatterns = [
-
-    url(r'^qq/login/$', views.QQloginView.as_view()),
+    # /list/(?P<category_id>\d+)/(?P<page_num>\d+)/?sort=排序方式
+    url(r'^list/(?P<category_id>\d+)/(?P<page_num>\d+)/$', views.ListView.as_view(), name='list'),
 
 ]
