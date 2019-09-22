@@ -29,5 +29,5 @@ urlpatterns = [
     # 5.城市数据
     url(r'^', include('apps.areas.urls')),
     # 6.商品数据list
-    url(r'^', include('apps.goods.urls')),
+    url(r'^', include('apps.goods.urls', namespace='goods')),
 ]
