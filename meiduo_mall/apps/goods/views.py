@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.views import View
 
 from apps.contents.utils import get_categories
-from apps.goods.models import GoodsCategory
+from apps.goods.models import GoodsCategory, SKU
 from apps.goods.utils import get_breadcrumb
 
 
@@ -75,6 +75,17 @@ class ListView(View):
         # 2.面包屑组件 cat3.parent
         breadcrumb = get_breadcrumb(cat3)
         # 3.排序 order_by
+        sort = request.GET.get('sort')
+        order_field = ""
+        if sort == 'price':
+            order_field = 'price'
+        elif sort == 'hot':
+            order_field = "-sales"
+        else:
+            order_field = 'create_time'
+
+        skus = SKU.objects.filter(category_id=cat3, is_launched=True).order_by(order_field)
+        print(skus)
         # 4.分页器 paginator
         # 5.热销商品
         context = {
